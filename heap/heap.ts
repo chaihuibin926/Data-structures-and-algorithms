@@ -43,14 +43,14 @@ class MaxHeap<T extends {value: number}> {
 
     const item = this.heap[1]
     this.heap[1] = this.heap[this.count];
-    this.heap[this.count] = undefined
+    this.count--
     let i = 1
-    while (this.heap[2 * i]) {
+    while (2 * i <= this.count) {
       let maxPos = i;
       if (this.heap[2 * i].value > this.heap[maxPos].value) {
         maxPos = 2 * i
       }
-      if (this.heap[2 * i + 1] && this.heap[2 * i + 1].value > this.heap[maxPos].value) {
+      if (2 * i + 1 <= this.count && this.heap[2 * i + 1].value > this.heap[maxPos].value) {
         maxPos = 2 * i + 1
       }
       if (maxPos === i) {
@@ -106,14 +106,14 @@ class MinHeap<T extends {value: number}> {
 
     const item = this.heap[1]
     this.heap[1] = this.heap[this.count];
-    this.heap[this.count] = undefined
+    this.count--
     let i = 1
-    while (this.heap[2 * i]) {
+    while (2 * i <= this.count) {
       let minPos = i;
       if (this.heap[2 * i].value < this.heap[minPos].value) {
         minPos = 2 * i
       }
-      if (this.heap[2 * i + 1] && this.heap[2 * i + 1].value < this.heap[minPos].value) {
+      if (2 * i + 1 <= this.count && this.heap[2 * i + 1].value < this.heap[minPos].value) {
         minPos = 2 * i + 1
       }
       if (minPos === i) {
