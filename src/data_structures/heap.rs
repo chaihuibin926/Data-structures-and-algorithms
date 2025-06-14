@@ -1,16 +1,16 @@
-trait HasValue {
+pub trait HasValue {
     type Value: PartialOrd;
-    fn value(&self) -> &Self::Value; 
+    fn value(&self) -> Self::Value; 
 }
 
-struct MaxHeap<T: HasValue> {
+pub struct MaxHeap<T: HasValue> {
     heap: Vec<T>,
     size: usize,
     count: usize,
 }
 
 impl<T: HasValue> MaxHeap<T> {
-    fn new(size: usize) -> MaxHeap<T> {
+    pub fn new(size: usize) -> MaxHeap<T> {
         MaxHeap {
             heap: Vec::new(),
             size,
@@ -22,7 +22,7 @@ impl<T: HasValue> MaxHeap<T> {
         self.heap.swap(i, j);
     }
 
-    fn push(&mut self, item: T) -> bool {
+    pub fn push(&mut self, item: T) -> bool {
         if self.size <= self.count {
             return false
         }
@@ -43,7 +43,7 @@ impl<T: HasValue> MaxHeap<T> {
         true
     }
 
-    fn pop(&mut self) -> Option<T> {
+    pub fn pop(&mut self) -> Option<T> {
         if self.count == 0 {
             return None
         } 
@@ -74,14 +74,14 @@ impl<T: HasValue> MaxHeap<T> {
 }
 
 
-struct MinHeap<T: HasValue> {
+pub struct MinHeap<T: HasValue> {
     heap: Vec<T>,
     size: usize,
     count: usize,
 }
 
 impl<T: HasValue> MinHeap<T> {
-    fn new(size: usize) -> MinHeap<T> {
+    pub fn new(size: usize) -> MinHeap<T> {
         MinHeap {
             heap: Vec::new(),
             size,
@@ -93,7 +93,7 @@ impl<T: HasValue> MinHeap<T> {
         self.heap.swap(i, j);
     }
 
-    fn push(&mut self, item: T) -> bool {
+    pub fn push(&mut self, item: T) -> bool {
         if self.size <= self.count {
             return false
         }
@@ -114,7 +114,7 @@ impl<T: HasValue> MinHeap<T> {
         true
     }
 
-    fn pop(&mut self) -> Option<T> {
+    pub fn pop(&mut self) -> Option<T> {
         if self.count == 0 {
             return None
         } 
@@ -141,6 +141,9 @@ impl<T: HasValue> MinHeap<T> {
         }
 
         Some(item)
+    }
+    pub fn is_empty(&self) -> bool {
+        self.count == 0
     }
 }
 
