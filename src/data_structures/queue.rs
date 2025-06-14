@@ -1,5 +1,5 @@
 #[derive(Debug)]
-struct Queue<T> {
+pub struct Queue<T> {
     queue: Vec<T>,
     head: usize,
     tail: usize,
@@ -7,7 +7,7 @@ struct Queue<T> {
 
 impl<T: Clone> Queue<T> {
 
-    fn new(size: usize) -> Self {
+    pub fn new(size: usize) -> Self {
         Queue {
             queue: Vec::with_capacity(size),
             head: 0,
@@ -15,7 +15,7 @@ impl<T: Clone> Queue<T> {
         }
     }
 
-    fn enququ(&mut self, item: T) -> bool {
+    pub fn enqueue(&mut self, item: T) -> bool {
         let c = self.queue.capacity();
         if self.head == 0 && self.tail == c {
             return false
@@ -36,7 +36,7 @@ impl<T: Clone> Queue<T> {
         true
     }
 
-    fn dequeue(&mut self) -> Option<T> {
+    pub fn dequeue(&mut self) -> Option<T> {
         if self.head < self.tail {
             let item = self.queue[self.head].clone();
             self.head += 1;
@@ -46,7 +46,7 @@ impl<T: Clone> Queue<T> {
         }
     }
 
-    fn expand(&mut self) {
+    pub fn expand(&mut self) {
         let old_capacity = self.queue.capacity();
         let ne_capacity = old_capacity * 2;
         let mut new_queue = Vec::with_capacity(ne_capacity);
@@ -56,5 +56,20 @@ impl<T: Clone> Queue<T> {
         self.queue = new_queue;
         self.tail = self.tail - self.head;
         self.head = 0;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_queue() {
+        let mut queue = Queue::new(5);
+        queue.enqueue(5);
+        queue.enqueue(6);
+        assert_eq!(queue.dequeue(), Some(5));
+        assert_eq!(queue.dequeue(), Some(6));
+        assert_eq!(queue.dequeue(), None);
     }
 }
